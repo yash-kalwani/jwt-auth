@@ -22,18 +22,20 @@ router.post('/sign-up', (req, res, next) => {
   // 2. validate password
   // 3. check if the user already exists
   // 4. multiple other things
-  const user = new User(emailId, password, firstName, lastName, org).get();
-  db.push(user);
+  const user = new User(emailId, firstName, lastName, org).get();
+  db.push({ ...user, password });
 
   res.json(user);
 });
 
 router.post('/token', validatePassword, (req, res, next) => {
-  const { id, password } = req.body;
+  const { user } = req.locals || {};
+
+  const { emailId, password } = user;
 
   const data = {
-    sub: id,
-    id,
+    sub: emailId,
+    id: id,
     password,
     iat: Date.now()
   };

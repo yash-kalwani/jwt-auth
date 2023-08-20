@@ -2,27 +2,27 @@ const createError = require('http-errors');
 
 const db = require('../dummyDB/index');
 
-const  = (req, res, next) => {
+// const  = (req, res, next) => {
 
-  // Do authentication here
-  const { token } = req.headers;
+//   // Do authentication here
+//   const { token } = req.headers;
 
-  const { id } = decodeToken(token);
+//   const { id } = decodeToken(token);
 
-  db.forEach((dbUser) => {
-    if (dbUser.id === parseInt(id)) {
-      req.locals = {
-        user: dbUser
-      }
-    }
-  })
+//   db.forEach((dbUser) => {
+//     if (dbUser.id === parseInt(id)) {
+//       req.locals = {
+//         user: dbUser
+//       }
+//     }
+//   })
 
-  if (!req.locals || !req.locals.user) {
-    next(createError(401));
-  }
+//   if (!req.locals || !req.locals.user) {
+//     next(createError(401));
+//   }
 
-  next();
-}
+//   next();
+// }
 
 const decodeToken = (token) => {
   // get id from decoding & authenticating jwt token 
@@ -31,15 +31,20 @@ const decodeToken = (token) => {
 
 const validatePassword = (req, res, next) => {
   const { emailId, password } = req.body;
-  let user = {};
+  console.log('db', db);
 
   db.forEach((dbUser) => {
-    if (dbUser.emailId === emailId) {
-      user = dbUser
+    console.log('dbUser', dbUser.emailId, emailId, dbUser.password, password);
+    if (dbUser.emailId === emailId && dbUser.password === password) {
+      req.locals = { user: dbUser }
     }
   })
 
-  return user.password === password
+  if (!req.locals || !req.locals.user) {
+    next(createError(401));
+  }
+
+  next();
 }
 
 module.exports = {

@@ -31,7 +31,6 @@ const decodeToken = (token) => {
 
 const validatePassword = (req, res, next) => {
   const { emailId, password } = req.body;
-  console.log('db', db);
 
   db.forEach((dbUser) => {
     console.log('dbUser', dbUser.emailId, emailId, dbUser.password, password);

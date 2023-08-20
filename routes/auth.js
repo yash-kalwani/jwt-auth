@@ -31,7 +31,7 @@ router.post('/sign-up', (req, res, next) => {
 router.post('/token', validatePassword, (req, res, next) => {
   const { user } = req.locals || {};
 
-  const { emailId, password } = user;
+  const { emailId, id, password } = user;
 
   const data = {
     sub: emailId,

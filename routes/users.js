@@ -2,29 +2,28 @@ var express = require('express');
 var router = express.Router();
 
 const db = require('../dummyDB/index');
-const user = require('../models/user');
-const authenticator = require('../middleware/authentication');
-
-/* GET users listing. */
-router.get('/super-user', function(req, res, next) {
-  const superUser = user[0];
-  console.log(superUser);
-  res.send(superUser);
-});
+const User = require('../models/user');
+const authentication = require('../middleware/authentication');
 
 router.post('/', (req, res, next) => {
-  const { firstName, lastName, org, dateAdded } = req.body;
+  const { firstName, lastName, org, emailId, password } = req.body;
 
-  // do validation here
-  const userObj = new user(firstName, lastName, org, dateAdded)
-  const final = userObj.get();
+  // do user validation here
+  // 1. validate user details
+  // 2. validate password
+  // 3. check if the user already exists
+  // 4. multiple other things
+  const user = new User(emailId, password, firstName, lastName, org).get();
+  db.push(user);
 
-  db.push(final);
-
-  res.json(final);
+  res.json(user);
 })
 
-router.get('/', authenticator, function(req, res, next) {
+router.get('/profile', authentication, () => {
+
+})
+
+router.get('/', authentication, (req, res, next) => {
   let user = req.locals.user;
 
   // accessing from middleware

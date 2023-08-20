@@ -1,14 +1,18 @@
 const db = require('../dummyDB/index');
 
 class User {
-  constructor(firstName, lastName, org) {
-    console.log(firstName, lastName, org);
+  constructor(emailId, password, firstName, lastName, org) {
     this.firstName = firstName
     this.lastName = lastName
     this.org = org
     this.dateAdded = Date.now();
-    console.log('b',db.length);
     this.id = db.length;
+    this.emailId = emailId;
+    this.password = this.encodePassword(password);
+  }
+
+  encodePassword(password) {
+    return password
   }
 
   get() {

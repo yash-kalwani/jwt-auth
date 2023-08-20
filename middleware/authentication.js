@@ -1,7 +1,6 @@
+const createError = require('http-errors');
+
 const db = require('../dummyDB/index');
-
-// decoding the token to verify if everything is fine
-
 
 const authenticator = (req, res, next) => {
 
@@ -11,28 +10,23 @@ const authenticator = (req, res, next) => {
   const { id } = decodeToken(token);
 
   db.forEach((dbUser) => {
-    if (`${dbUser.id}` === id) {
+    if (dbUser.id === parseInt(id)) {
       req.locals = {
-        user: dbUser,
-        isAuthenticated: true
-      }
-    } else {
-      req.locals = {
-        user: null,
-        isAuthenticated: false
+        user: dbUser
       }
     }
   })
+
+  if (!req.locals || !req.locals.user) {
+    next(createError(401));
+  }
+
   next();
 }
 
 const decodeToken = (token) => {
   // get id from decoding & authenticating jwt token 
   return { id: token }
-}
-
-const isAuthenticated = () => {
-  return true
 }
 
 module.exports = authenticator;

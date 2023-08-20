@@ -2,7 +2,7 @@ const createError = require('http-errors');
 
 const db = require('../dummyDB/index');
 
-const authenticator = (req, res, next) => {
+const  = (req, res, next) => {
 
   // Do authentication here
   const { token } = req.headers;
@@ -29,4 +29,19 @@ const decodeToken = (token) => {
   return { id: token }
 }
 
-module.exports = authenticator;
+const validatePassword = (req, res, next) => {
+  const { emailId, password } = req.body;
+  let user = {};
+
+  db.forEach((dbUser) => {
+    if (dbUser.emailId === emailId) {
+      user = dbUser
+    }
+  })
+
+  return user.password === password
+}
+
+module.exports = {
+  validatePassword,
+}

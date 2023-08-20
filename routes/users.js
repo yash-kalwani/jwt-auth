@@ -5,7 +5,7 @@ const db = require('../dummyDB/index');
 const User = require('../models/user');
 const authentication = require('../middleware/authentication');
 
-router.post('/', (req, res, next) => {
+router.post('/sign-up', (req, res, next) => {
   const { firstName, lastName, org, emailId, password } = req.body;
 
   // do user validation here
@@ -23,12 +23,12 @@ router.get('/profile', authentication, () => {
 
 })
 
-router.get('/', authentication, (req, res, next) => {
-  let user = req.locals.user;
+// router.get('/', authentication, (req, res, next) => {
+//   let user = req.locals.user;
 
-  // accessing from middleware
-  // nothing is happening here
-  res.json(user)
-});
+//   // accessing from middleware
+//   // nothing is happening here
+//   res.json(user)
+// });
 
 module.exports = router;

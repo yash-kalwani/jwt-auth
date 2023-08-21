@@ -21,7 +21,7 @@ const signUp = async (req, res, next) => {
   db.push({ ...user, password });
 
   res.json(user);
-}
+};
 
 const generateToken = async (req, res, next) => {
   const { user } = req.locals || {};
@@ -37,9 +37,9 @@ const generateToken = async (req, res, next) => {
   const token = jwt.sign(data, secret, { expiresIn: '1h' });
 
   res.json({ token: `Bearer ${token}` });
-}
+};
 
 module.exports = {
   signUp,
-  generateToken
-}
+  generateToken,
+};

@@ -1,8 +1,8 @@
 const profile = async (req, res, next) => {
   const { user } = req.locals || {};
-  res.json({ user })
-}
+  res.json({ user });
+};
 
 module.exports = {
-  profile
-}
+  profile,
+};

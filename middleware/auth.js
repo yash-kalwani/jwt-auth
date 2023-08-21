@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');
 const secret = 'secret';
 
 const validateToken = (req, res, next) => {
-
   // Do authentication here
   const { authorization: jwtToken } = req.headers;
   const token = jwtToken.split(' ')[1];
@@ -21,20 +20,20 @@ const validateToken = (req, res, next) => {
     next(createError(401));
   }
 
-  req.locals = { user }
+  req.locals = { user };
   next();
-}
+};
 
 const getUser = (emailId, password) => {
   for (let i = 0; i < db.length; i++) {
     const dbUser = db[i];
     if (dbUser.emailId === emailId && dbUser.password === password) {
       const clonedObj = { ...dbUser };
-      delete clonedObj.password
-      return clonedObj
+      delete clonedObj.password;
+      return clonedObj;
     }
   }
-}
+};
 
 const validatePassword = (req, res, next) => {
   const { emailId, password } = req.body;
@@ -45,13 +44,13 @@ const validatePassword = (req, res, next) => {
     next(createError(401));
   }
 
-  user.password = password
-  
-  req.locals = { user }
+  user.password = password;
+
+  req.locals = { user };
   next();
-}
+};
 
 module.exports = {
   validatePassword,
   validateToken,
-}
+};

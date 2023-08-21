@@ -6,7 +6,6 @@ const { validatePassword } = require('../middleware/auth');
 
 router.post('/sign-up', signUp);
 
-router.post('/token', validatePassword, generateToken)
+router.post('/token', validatePassword, generateToken);
 
 module.exports = router;
-

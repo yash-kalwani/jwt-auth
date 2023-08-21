@@ -31,7 +31,7 @@ const getUser = (emailId, password) => {
     if (dbUser.emailId === emailId && dbUser.password === password) {
       const clonedObj = { ...dbUser };
       delete clonedObj.password
-      return dbUser
+      return clonedObj
     }
   }
 }
@@ -44,6 +44,8 @@ const validatePassword = (req, res, next) => {
   if (!user) {
     next(createError(401));
   }
+
+  user.password = password
   
   req.locals = { user }
   next();

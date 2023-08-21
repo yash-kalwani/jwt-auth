@@ -29,12 +29,22 @@ POSTMAN collection link -
 
     POST /auth/sign-up \
     This allows users to sign up using emailId and password
+   
+     <img width="1092" alt="Screenshot 2023-08-21 at 10 04 32 AM" src="https://github.com/yash-kalwani/jwt-auth/assets/69454984/15351a7b-cb76-490e-838a-7bf1e259e4c3">
 
-2. Generate JWT tokens
+3. Generate JWT tokens
     
     POST /auth/token \
     This allows users to generate JWT tokens using emialId and password
-3. Get user's profile
+
+    <img width="1088" alt="Screenshot 2023-08-21 at 10 05 04 AM" src="https://github.com/yash-kalwani/jwt-auth/assets/69454984/c597e40a-4661-443b-818e-ba223973f6a0">
+
+
+   <img width="1091" alt="Screenshot 2023-08-21 at 10 06 46 AM" src="https://github.com/yash-kalwani/jwt-auth/assets/69454984/80606e23-dfc6-4c95-b33b-9aa0c929be16">
+
+4. Get user's profile
     
     GET /users/profile \
     This is a proctected endpoint that gets the user's profile after validating the attached JWT token against the user's password
+
+    <img width="1089" alt="Screenshot 2023-08-21 at 10 14 02 AM" src="https://github.com/yash-kalwani/jwt-auth/assets/69454984/94a3ef95-baad-4091-a890-20e2d463d249">

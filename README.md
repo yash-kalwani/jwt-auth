@@ -23,7 +23,7 @@ The server will run on port 3000
 
 ## Example
 
-POSTMAN collection link -
+Public POSTMAN collection link - https://elements.getpostman.com/redirect?entityId=28877095-4e51ed71-77b6-41dd-adb5-03f381705216&entityType=collection
 
 1. User sign up
 

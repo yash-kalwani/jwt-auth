@@ -34,7 +34,7 @@ const generateToken = async (req, res, next) => {
     password,
   };
 
-  const token = jwt.sign(data, secret, { expiresIn: 60 });
+  const token = jwt.sign(data, secret, { expiresIn: '1h' });
 
   res.json({ token: `Bearer ${token}` });
 }

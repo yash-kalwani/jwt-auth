@@ -4,14 +4,11 @@ var router = express.Router();
 const User = require('../models/user');
 const db = require('../dummyDB/index');
 
-const { validatePassword } = require('../middleware/authentication');
+const { validatePassword } = require('../middleware/auth');
 
-// var jwt = require('jsonwebtoken');
-// var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
+var jwt = require('jsonwebtoken');
 
-const sign = require('jwt-encode');
-
-// Secret, get this from a really secure place
+// We need to get this secret via env vars from a secrets manager in a secure way
 const secret = 'secret';
 
 router.post('/sign-up', (req, res, next) => {
@@ -37,12 +34,11 @@ router.post('/token', validatePassword, (req, res, next) => {
     sub: emailId,
     id: id,
     password,
-    iat: Date.now()
   };
-  
-  const jwt = sign(data, secret);
 
-  res.json({ token: `Bearer ${jwt}` });
+  const token = jwt.sign(data, secret, { expiresIn: 60 });
+
+  res.json({ token: `Bearer ${token}` });
 })
 
 module.exports = router;
